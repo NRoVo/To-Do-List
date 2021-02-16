@@ -20,15 +20,17 @@ namespace ToDoList
         {
             services.AddDbContext<TodoContext>(opt =>
             {
-                opt.UseInMemoryDatabase("kek");
+                opt.UseSqlServer(Configuration.GetConnectionString("Default")).EnableDetailedErrors()
+                   .EnableSensitiveDataLogging();
             });
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "ToDoList", Version = "v1"}); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, TodoContext context)
         {
+            context.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
