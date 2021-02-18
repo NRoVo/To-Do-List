@@ -1,4 +1,3 @@
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +26,8 @@ namespace ToDoList
             });
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "ToDoList", Version = "v1"}); });
-            services.AddMvc().AddFluentValidation();
-            services.AddTransient<IValidator<TodoItemDTO>, TodoItemDTO.ToDoItemValidator>();
+            services.AddMvc().AddFluentValidation(configuration =>
+                configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
