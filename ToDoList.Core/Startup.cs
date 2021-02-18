@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,10 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using ToDoList.Models;
-using FluentValidation.AspNetCore;
+using ToDoList.Core.Models;
 
-namespace ToDoList
+namespace ToDoList.Core
 {
     public class Startup
     {
@@ -25,7 +25,7 @@ namespace ToDoList
                    .EnableSensitiveDataLogging();
             });
             services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "ToDoList", Version = "v1"}); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "ToDoList.Core", Version = "v1"}); });
             services.AddMvc().AddFluentValidation(configuration =>
                 configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
@@ -38,7 +38,7 @@ namespace ToDoList
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDoList v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDoList.Core v1"));
             }
 
             app.UseHttpsRedirection();

@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ToDoList.Models;
+using ToDoList.Core.Models;
 
-namespace ToDoList.Controllers
+namespace ToDoList.Core.Controllers
 {
     [Route("api/TodoItems")]
     [ApiController]

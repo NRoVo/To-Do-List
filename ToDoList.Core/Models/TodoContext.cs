@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ToDoList.Models
+namespace ToDoList.Core.Models
 {
     public class TodoContext : DbContext
     {

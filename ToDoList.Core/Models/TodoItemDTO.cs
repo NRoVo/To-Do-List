@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ToDoList.Models
+namespace ToDoList.Core.Models
 {
     public class TodoItemDTO
     {

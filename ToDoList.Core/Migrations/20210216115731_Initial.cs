@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ToDoList.Migrations
+namespace ToDoList.Core.Migrations
 {
     public partial class Initial : Migration
     {
