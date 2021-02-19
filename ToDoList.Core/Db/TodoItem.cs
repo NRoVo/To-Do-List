@@ -1,4 +1,4 @@
-﻿namespace ToDoList.Core.Models
+﻿namespace ToDoList.Core.Db
 {
     public class TodoItem
     {
