@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using ToDoList.Core.Models;
+using ToDoList.Core.Db;
 
 namespace ToDoList.Core.Migrations
 {

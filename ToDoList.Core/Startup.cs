@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using ToDoList.Core.Models;
+using ToDoList.Core.Db;
 
 namespace ToDoList.Core
 {
