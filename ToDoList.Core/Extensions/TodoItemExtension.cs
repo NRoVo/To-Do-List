@@ -6,7 +6,7 @@ namespace ToDoList.Core.Extensions
     public static class TodoItemExtension
     {
         public static TodoItemDTO ToDTO(this TodoItem todoItem) =>
-            new TodoItemDTO
+            new()
             {
                 Id = todoItem.Id,
                 Name = todoItem.Name,
