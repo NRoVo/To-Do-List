@@ -31,8 +31,6 @@ namespace ToDoList.UnitTests
         [Fact]
         public async Task CheckGetTodoListHandler()
         {
-            var dto = new TodoItemDTO();
-            
             var pageSize = 10;
             var pageIndex = 0;
             var getTodoListRequest = new GetTodoListHandler.GetTodoList(pageSize, pageIndex);
@@ -46,6 +44,7 @@ namespace ToDoList.UnitTests
             objectResult.Value.Should().BeOfType<PagedResult<TodoItemDTO>>().Which.Count.Should().Be(0);
             objectResult.StatusCode.Should().BeNull();
 
+            var dto = new TodoItemDTO();
             var createTodoRequest = new CreateTodoHandler.CreateTodo(dto);
             await _createTodoHandler.Handle(createTodoRequest, CancellationToken.None);
 
