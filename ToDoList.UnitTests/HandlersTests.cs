@@ -28,7 +28,7 @@ namespace ToDoList.UnitTests
             _getTodoByIdHandler = new(dbContext);
         }
 
-        [Fact]
+        /*[Fact]
         public async Task CheckGetTodoListHandler()
         {
             var request = new GetTodoListHandler.GetTodoList();
@@ -39,7 +39,7 @@ namespace ToDoList.UnitTests
             var objectResult = (ObjectResult) result;
             objectResult.Value.Should().BeOfType<List<TodoItemDTO>>();
             objectResult.StatusCode.Should().BeNull();
-        }
+        }*/
 
         [Fact]
         public async Task CheckGetTodoByIdHandler()

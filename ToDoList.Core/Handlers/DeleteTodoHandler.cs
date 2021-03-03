@@ -25,7 +25,7 @@ namespace ToDoList.Core.Handlers
             public long Id { get; }
         }
 
-        public async Task<IActionResult> Handle(DeleteTodo request, CancellationToken cancellationToken) 
+        public async Task<IActionResult> Handle(DeleteTodo request, CancellationToken cancellationToken)
         {
             var todoItem = await _context.TodoItems.FindAsync(request.Id);
 

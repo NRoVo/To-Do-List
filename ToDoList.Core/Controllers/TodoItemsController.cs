@@ -17,11 +17,10 @@ namespace ToDoList.Core.Controllers
             _mediator = mediator;
         }
 
-        // GET: api/TodoItems
         [HttpGet]
-        public Task<IActionResult> GetTodoItems()
+        public Task<IActionResult> GetTodoItems(int pageIndex, int pageSize)
         {
-            return _mediator.Send(new GetTodoListHandler.GetTodoList());
+            return _mediator.Send(new GetTodoListHandler.GetTodoList(pageIndex, pageSize));
         }
 
         [HttpGet("{id}")]

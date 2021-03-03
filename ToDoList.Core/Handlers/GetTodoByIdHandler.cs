@@ -7,7 +7,6 @@ using ToDoList.Core.Extensions;
 
 namespace ToDoList.Core.Handlers
 {
-   
     public class GetTodoByIdHandler : IRequestHandler<GetTodoByIdHandler.GetTodoById, IActionResult>
     {
         private readonly TodoContext _context;

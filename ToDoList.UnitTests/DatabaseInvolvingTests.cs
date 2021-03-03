@@ -8,8 +8,8 @@ namespace ToDoList.UnitTests
     {
         protected static TodoContext DbContextCreate()
         {
-            var context = new TodoContext(new DbContextOptionsBuilder<TodoContext>().
-                UseInMemoryDatabase(Guid.NewGuid().ToString()).Options);
+            var context = new TodoContext(new DbContextOptionsBuilder<TodoContext>()
+               .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options);
             context.Database.EnsureCreated();
             return context;
         }
