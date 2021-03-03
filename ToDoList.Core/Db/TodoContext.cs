@@ -8,6 +8,7 @@ namespace ToDoList.Core.Db
             : base(options)
         {
         }
+
         public DbSet<TodoItem> TodoItems { get; set; }
     }
 }

@@ -31,14 +31,28 @@ namespace ToDoList.UnitTests
         [Fact]
         public async Task CheckGetTodoListHandler()
         {
-            var request = new GetTodoListHandler.GetTodoList();
+            var pageSize = 10;
+            var pageIndex = 0;
+            var getTodoListRequest = new GetTodoListHandler.GetTodoList(pageSize, pageIndex);
+            var getTodoListResult = await _getTodoListHandler.Handle(getTodoListRequest, CancellationToken.None);
 
-            var result = await _getTodoListHandler.Handle(request, CancellationToken.None);
+            getTodoListResult.Should().BeOfType<ObjectResult>();
+            var objectResult = (ObjectResult) getTodoListResult;
+            objectResult.Value.Should().BeOfType<PagedResult<TodoItemDTO>>().Which.Items.Should()
+               .BeOfType<List<TodoItemDTO>>();
 
-            result.Should().BeOfType<ObjectResult>();
-            var objectResult = (ObjectResult) result;
-            objectResult.Value.Should().BeOfType<List<TodoItemDTO>>();
+            objectResult.Value.Should().BeOfType<PagedResult<TodoItemDTO>>().Which.Count.Should().Be(0);
             objectResult.StatusCode.Should().BeNull();
+
+            var dto = new TodoItemDTO();
+            var createTodoRequest = new CreateTodoHandler.CreateTodo(dto);
+            await _createTodoHandler.Handle(createTodoRequest, CancellationToken.None);
+
+            getTodoListRequest = new GetTodoListHandler.GetTodoList(pageSize, pageIndex);
+            getTodoListResult = await _getTodoListHandler.Handle(getTodoListRequest, CancellationToken.None);
+
+            var newObjectResult = (ObjectResult) getTodoListResult;
+            newObjectResult.Value.Should().BeOfType<PagedResult<TodoItemDTO>>().Which.Count.Should().Be(1);
         }
 
         [Fact]
@@ -49,10 +63,10 @@ namespace ToDoList.UnitTests
             await _createTodoHandler.Handle(createTodoRequest, CancellationToken.None);
 
             var getTodoByIdrequest = new GetTodoByIdHandler.GetTodoById(1);
-            var result = await _getTodoByIdHandler.Handle(getTodoByIdrequest, CancellationToken.None);
+            var getTodoByIdResult = await _getTodoByIdHandler.Handle(getTodoByIdrequest, CancellationToken.None);
 
-            result.Should().BeOfType<ObjectResult>();
-            var objectResult = (ObjectResult) result;
+            getTodoByIdResult.Should().BeOfType<ObjectResult>();
+            var objectResult = (ObjectResult) getTodoByIdResult;
             objectResult.Value.Should().BeOfType<TodoItemDTO>();
             objectResult.StatusCode.Should().BeNull();
         }

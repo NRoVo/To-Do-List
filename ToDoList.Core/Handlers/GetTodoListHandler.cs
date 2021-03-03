@@ -6,6 +6,7 @@ using ToDoList.Core.Db;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Core.Extensions;
+using ToDoList.Core.Models;
 
 namespace ToDoList.Core.Handlers
 {
@@ -18,16 +19,31 @@ namespace ToDoList.Core.Handlers
             _context = context;
         }
 
-        public class GetTodoList : IRequest <IActionResult>
+        public class GetTodoList : IRequest<IActionResult>
         {
+            internal readonly int PageSize;
+            internal readonly int PageIndex;
+
+            public GetTodoList(int pageSize, int pageIndex)
+            {
+                PageSize = pageSize;
+                PageIndex = pageIndex;
+            }
         }
 
         public async Task<IActionResult> Handle(GetTodoList request, CancellationToken cancellationToken)
         {
             var result = await _context.TodoItems
+               .Skip(request.PageSize * request.PageIndex)
+               .Take(request.PageSize)
                .Select(x => x.ToDTO())
                .ToListAsync(cancellationToken);
-            return new ObjectResult(result);
+
+            var count = await _context.TodoItems.CountAsync(cancellationToken);
+
+            var pagedResult = new PagedResult<TodoItemDTO>(result, count);
+
+            return new ObjectResult(pagedResult);
         }
     }
 }
