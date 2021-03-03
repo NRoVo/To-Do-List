@@ -39,7 +39,7 @@ namespace ToDoList.Core.Handlers
                .Select(x => x.ToDTO())
                .ToListAsync(cancellationToken);
 
-            var count = await _context.TodoItems.CountAsync(cancellationToken: cancellationToken);
+            var count = await _context.TodoItems.CountAsync(cancellationToken);
 
             var pagedResult = new PagedResult<TodoItemDTO>(result, count);
 

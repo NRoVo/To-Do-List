@@ -31,10 +31,10 @@ namespace ToDoList.UnitTests
         [Fact]
         public async Task CheckGetTodoListHandler()
         {
+            var dto = new TodoItemDTO();
+            
             var pageSize = 10;
             var pageIndex = 0;
-            var dto = new TodoItemDTO();
-
             var getTodoListRequest = new GetTodoListHandler.GetTodoList(pageSize, pageIndex);
             var getTodoListResult = await _getTodoListHandler.Handle(getTodoListRequest, CancellationToken.None);
 
