@@ -18,9 +18,9 @@ namespace ToDoList.Core.Controllers
         }
 
         [HttpGet]
-        public Task<IActionResult> GetTodoItems(int pageIndex, int pageSize)
+        public Task<IActionResult> GetTodoItems(int pageSize, int pageIndex)
         {
-            return _mediator.Send(new GetTodoListHandler.GetTodoList(pageIndex, pageSize));
+            return _mediator.Send(new GetTodoListHandler.GetTodoList(pageSize, pageIndex));
         }
 
         [HttpGet("{id}")]

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -32,17 +31,6 @@ namespace ToDoList.Core.Handlers
             }
         }
 
-        private class PagedResult
-        {
-            private List<TodoItemDTO> _dtoList;
-            private int _pageCount;
-            public PagedResult(List<TodoItemDTO> dtoList, int pageCount)
-            {
-                _dtoList = dtoList;
-                _pageCount = pageCount;
-            }
-        }
-
         public async Task<IActionResult> Handle(GetTodoList request, CancellationToken cancellationToken)
         {
             var result = await _context.TodoItems
@@ -51,11 +39,9 @@ namespace ToDoList.Core.Handlers
                .Select(x => x.ToDTO())
                .ToListAsync(cancellationToken);
 
-            var count =  _context.TodoItems
-               .Select(x => x.ToDTO())
-               .Count();
+            var count = await _context.TodoItems.CountAsync(cancellationToken: cancellationToken);
 
-            var pagedResult = new PagedResult(result, count);
+            var pagedResult = new PagedResult<TodoItemDTO>(result, count);
 
             return new ObjectResult(pagedResult);
         }
