@@ -21,4 +21,11 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Shared\_CreateTodoView.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\_TodoView.cshtml" />
+    </ItemGroup>
+
+
+
 </Project>
