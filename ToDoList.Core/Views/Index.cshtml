@@ -1,0 +1,49 @@
+﻿@page
+@using ToDoList.Core.Views
+@model ToDoList.Core.Views.IndexView
+
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="~/css/TodoViewStyles.css">
+</head>
+<body>
+<div class="header">
+    <h2>To Do</h2>
+    @using (Html.BeginForm(FormMethod.Post))
+    {
+        <input name="FormOperation" type="hidden" value="@FormOperation.CreateTodo">
+        @Html.TextBoxFor(x => x.Todo.Name, new {placeholder = "Title..."})
+        <input type="submit" class="addButton" value="Add"/>
+    }
+</div>
+
+<ul>
+    @foreach (var itemDTO in Model.Todos)
+    {
+        var c = itemDTO.IsComplete ? "checked" : "";
+        <li class="@c">
+
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                <input name="Todo.IsComplete" type="hidden" value="@((!itemDTO.IsComplete).ToString())">
+                <input name="FormOperation" type="hidden" value="@FormOperation.UpdateTodo">
+                <input name="Todo.Id" type="hidden" value="@itemDTO.Id"/>
+                <input name="Todo.Name" type="hidden" value="@itemDTO.Name"/>
+                <span onclick="this.parentElement.submit()" class="todoNameSpan">@itemDTO.Name</span>
+            }
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                <input name="FormOperation" type="hidden" value="@FormOperation.DeleteTodo">
+                <input name="Todo.Id" type="hidden" value="@itemDTO.Id">
+                <input type="submit" class="close" value="&#9747"/>
+            }
+        </li>
+    }
+</ul>
+</body>
+</html>

@@ -25,10 +25,11 @@ namespace ToDoList.Core
                 opt.UseSqlServer(Configuration.GetConnectionString("Default")).EnableDetailedErrors()
                    .EnableSensitiveDataLogging();
             });
-            services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "ToDoList.Core", Version = "v1"}); });
-            services.AddMvc().AddFluentValidation(configuration =>
-                configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddControllers();
+            services.AddRazorPages(x => x.RootDirectory = "/Views");
+            services.AddMvc()
+               .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddMediatR(typeof(Startup));
         }
 
@@ -42,11 +43,15 @@ namespace ToDoList.Core
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDoList.Core v1"));
             }
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
+            });
         }
     }
 }
